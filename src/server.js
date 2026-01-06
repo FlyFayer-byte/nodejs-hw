@@ -12,8 +12,10 @@ const app = express();
 const PORT = process.env.PORT ?? 3000;
 
 // Middleware
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); // Middleware для парсингу JSON
+
+app.use(cors()); // Дозволяє запити з будь-яких джерел
+
 app.use(
   pino({
     level: 'info',
@@ -29,11 +31,6 @@ app.use(
     },
   }),
 );
-
-// Middleware для парсингу JSON
-app.use(express.json());
-
-app.use(cors()); // Дозволяє запити з будь-яких джерел
 
 // Логування часу
 app.use((req, res, next) => {
