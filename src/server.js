@@ -58,7 +58,7 @@ app.get('/notes/:noteId', (req, res) => {
 // Маршрут для тестування middleware помилки
 app.get('/test-error', (req, res) => {
   // Штучна помилка для прикладу
-  throw new Error('Something went wrong');
+  throw new Error('Simulated server error');
 });
 
 // Middleware 404 (після всіх маршрутів)
