@@ -143,3 +143,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 Manual.md
+
+notes.json
+students.json
