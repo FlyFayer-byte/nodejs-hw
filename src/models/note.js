@@ -1,5 +1,4 @@
-import { Schema } from "mongoose";
-import { model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const noteSchema = new Schema(
   {
@@ -23,5 +22,15 @@ const noteSchema = new Schema(
     timestamps: true,
   },
 );
+
+// Додаємо текстовий індекс до моделі Note
+
+// Оскільки нам потрібно шукати текст по властивостям title та content,
+// ми створюємо текстовий індекс по полям title та content.
+// Додаємо текстовий індекс: кажемо MongoDB, що по полям title та content
+// можна робити $text
+noteSchema.index({ title: "text", content: "text" });
+
+// Це забезпечить можливість виконувати $text-пошук у контролерах.
 
 export const Note = model('Note', noteSchema);

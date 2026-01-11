@@ -1,6 +1,14 @@
 // src/routes/studentsRoutes.js - опис роутів
 
 import { Router } from 'express';
+// Використовуємо створені схеми валідації
+import { celebrate } from 'celebrate';
+import {
+  noteIdSchema,
+  getAllNotesSchema,
+  createNoteSchema,
+  updateNoteSchema
+} from '../validations/notesValidation.js';
 import {
   getAllNotes,
   getNoteById,
@@ -10,15 +18,20 @@ import {
 } from '../controllers/notesController.js';
 
 const router = Router();
+
 // Роут GET /notes
-router.get('/notes', getAllNotes);
+router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
+
 // Роут GET /notes/:noteId
-router.get('/notes/:noteId', getNoteById);
-// Роут POST /notes
-router.post('/notes', createNote);
+router.get('/notes/:noteId', celebrate(noteIdSchema), getNoteById);
+
+// Роут POST /notes - для створення нової нотатки
+router.post('/notes', celebrate(createNoteSchema), createNote);
+
 // Роут DELETE /notes/:noteId
-router.delete('/notes/:noteId', deleteNote);
+router.delete('/notes/:noteId', celebrate(noteIdSchema), deleteNote);
+
 // Роут PATCH /notes/:noteId
-router.patch('/notes/:noteId', updateNote);
+router.patch('/notes/:noteId', celebrate({ ...noteIdSchema, ...updateNoteSchema }), updateNote);
 
 export default router;
