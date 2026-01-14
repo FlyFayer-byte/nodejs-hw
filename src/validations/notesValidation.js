@@ -15,9 +15,8 @@ const objectIdValidator = (value, helpers) => {
 export const noteIdSchema = {
   [Segments.PARAMS]: Joi.object({
     noteId: Joi.string().custom(objectIdValidator).required().messages({
-        'any.required': 'Note id is required',
         'string.base': 'Note id must be a string',
-        'any.custom': 'Invalid id format',
+        'any.required': 'Note id is required',
       }),
     }),
 };

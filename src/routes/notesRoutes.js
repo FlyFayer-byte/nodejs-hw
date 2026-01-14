@@ -16,8 +16,12 @@ import {
   deleteNote,
   updateNote
 } from '../controllers/notesController.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
+
+// Додаємо middleware до всіх шляхів, що починаються з /notes
+router.use("/notes", authenticate);
 
 // Роут GET /notes
 router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
@@ -32,6 +36,6 @@ router.post('/notes', celebrate(createNoteSchema), createNote);
 router.delete('/notes/:noteId', celebrate(noteIdSchema), deleteNote);
 
 // Роут PATCH /notes/:noteId
-router.patch('/notes/:noteId', celebrate({ ...noteIdSchema, ...updateNoteSchema }), updateNote);
+router.patch('/notes/:noteId', celebrate(updateNoteSchema), updateNote);
 
 export default router;
