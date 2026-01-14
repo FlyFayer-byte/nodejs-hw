@@ -16,8 +16,12 @@ import {
   deleteNote,
   updateNote
 } from '../controllers/notesController.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
+
+// Додаємо middleware до всіх шляхів, що починаються з /notes
+router.use("/notes", authenticate);
 
 // Роут GET /notes
 router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);

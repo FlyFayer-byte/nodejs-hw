@@ -10,7 +10,10 @@ import { logger } from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-import  router  from './routes/notesRoutes.js';
+import router from './routes/notesRoutes.js';
+import authRouter from './routes/authRoutes.js';
+
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -21,6 +24,7 @@ const PORT = process.env.PORT ?? 3000;
 app.use(logger);         // 1. Логер першим — бачить усі запити
 app.use(express.json()); // 2. Парсинг JSON-тіла
 app.use(cors());         // 3. Дозвіл для запитів з інших доменів
+app.use(cookieParser()); // 4. 
 
 // Логування часу
 app.use((req, res, next) => {
@@ -30,6 +34,7 @@ app.use((req, res, next) => {
 
 // Реєстрацію загального роута нотаток (підключаємо групу маршрутів)
 app.use(router);
+app.use(authRouter);
 
 // Middleware 404 (після всіх маршрутів)
 app.use(notFoundHandler);
