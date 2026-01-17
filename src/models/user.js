@@ -20,6 +20,11 @@ const userSchema = new Schema(
       required: true,
       minlength: 8
     },
+    avatar: {
+      type: String,
+      required: false,
+      default: "<https://ac.goit.global/fullstack/react/default-avatar.jpg>",
+    },
   },
   // Для автоматичного створення полів createdAt та updatedAt,
   // використовуємо параметр timestamps: true при створенні моделі
